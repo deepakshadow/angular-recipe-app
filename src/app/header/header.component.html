@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: rgba(50, 143, 250, 0.432);">
+    <a class="navbar-brand" style="cursor: pointer;">Recipe Book</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active" routerLinkActiveOptions="{exact: true}"
+                *ngIf="isAuthenticated">
+                <a class="nav-link" [routerLink]="['/recipes']" style="cursor: pointer;">Recipes</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/auth']" style="cursor: pointer;"
+                    *ngIf="!isAuthenticated">Authentication</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/shopping-list']" style="cursor: pointer;">Shopping List</a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right" *ngIf="isAuthenticated">
+            <li class="nav-item">
+                <a class="nav-link" style="cursor: pointer;" (click)="onLogout()">Logout</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Manage
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" style="cursor: pointer;" (click)="onSaveData()">Save</a>
+                    <a class="dropdown-item" style="cursor: pointer;" (click)="onFetchData()">Fetch</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

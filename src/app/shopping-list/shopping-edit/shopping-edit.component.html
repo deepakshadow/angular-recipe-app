@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-12">
+        <form (ngSubmit)="onAddList()" #ingForm="ngForm">
+            <div class="row">
+                <div class="col-5 form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" name="recipename" ngModel required
+                        #name="ngModel">
+                    <span *ngIf="!name.valid && name.touched">Please fill the recipe name field!</span>
+                </div>
+                <div class="col-2 form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" class="form-control" name="recipeamount" ngModel required
+                        pattern="^[1-9]+[0-9]*$" #amount="ngModel">
+                    <span *ngIf="!amount.valid && amount.touched">Please fill the recipe amount field!</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 btn-group">
+                    <button class="btn btn-primary" type="submit" [disabled]="!ingForm.valid">{{editMode? 'Update': 'Add'}}</button>
+                    <button class="btn btn-danger" type="button" *ngIf="editMode" (click)="onDelete()">Delete</button>
+                    <button class="btn btn-warning" type="button" (click)="onClear()">Clear</button>
+                </div>
+            </div>
+        </form>
+    </div> 
+</div>
