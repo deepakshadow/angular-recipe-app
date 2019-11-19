@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -12,20 +12,20 @@ import { ShoppingService } from '../shopping.service';
   templateUrl: './shopping-edit.component.html',
   styleUrls: ['./shopping-edit.component.css']
 })
-export class ShoppingEditComponent implements OnInit {
+export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   @ViewChild('ingForm', { static: false }) ingredientForm: NgForm;
-  subscription: Subscription;
+  private subscription: Subscription;
   editMode: boolean = false;
-  editingItemindex: number;
+  editingItemIndex: number;
   editingItem: Ingredient;
 
 
   constructor(private shoppingService: ShoppingService) { }
 
   ngOnInit() {
-    this.shoppingService.editingStarted.subscribe((index: number) => {
-      this.editingItemindex = index;
+    this.subscription = this.shoppingService.editingStarted.subscribe((index: number) => {
+      this.editingItemIndex = index;
       this.editMode = true;
       this.editingItem = this.shoppingService.getIngredient(index);
       this.ingredientForm.setValue({
@@ -40,7 +40,7 @@ export class ShoppingEditComponent implements OnInit {
     const addedAmount = this.ingredientForm.value.recipeamount;
     const newIngredient = new Ingredient(addedName, addedAmount);
     if (this.editMode) {
-      this.shoppingService.updateIngredient(this.editingItemindex, newIngredient)
+      this.shoppingService.updateIngredient(this.editingItemIndex, newIngredient)
     } else {
       this.shoppingService.addIngredient(newIngredient);
     }
@@ -54,8 +54,12 @@ export class ShoppingEditComponent implements OnInit {
   }
 
   onDelete = () => {
-    this.shoppingService.deleteIngredient(this.editingItemindex);
+    this.shoppingService.deleteIngredient(this.editingItemIndex);
     this.onClear();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 

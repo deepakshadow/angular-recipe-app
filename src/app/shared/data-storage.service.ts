@@ -16,9 +16,9 @@ export class DataStorageService {
 
     onSendingData = () => {
         this._http.put(this.baseUrl, this.recipeService.getRecipes(), { observe: 'response' }).subscribe((responseData) => {
-            console.log(responseData);
+            // console.log(responseData);
         }, error => {
-            console.log(error.message);
+            // console.log(error.message);
         })
     }
 

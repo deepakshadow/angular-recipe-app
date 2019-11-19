@@ -40,12 +40,12 @@ export class AuthComponent implements OnInit {
 
     authObservable.subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         this.router.navigate(["/recipes"]);
         this.isLoading = false;
       },
       errorResponse => {
-        console.log(errorResponse);
+        // console.log(errorResponse);
         this.error = errorResponse;
         this.isLoading = false;
       }
