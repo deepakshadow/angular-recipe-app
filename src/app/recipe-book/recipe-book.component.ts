@@ -11,6 +11,9 @@ export class RecipeBookComponent implements OnInit {
   constructor(private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.toastr.warning(`Hello, kindly note to fetch the data which is in right-top corner and save after edit`);
+    this.toastr.warning(`Hey! FETCH the data which is in right-top corner manage section.`);
+    setTimeout(() => {
+      this.toastr.warning(`SAVE after any change in recipe section.`);
+    }, 4000);
   }
 }
