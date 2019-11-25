@@ -23,7 +23,7 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({timeOut: 6000}),
+    ToastrModule.forRoot({timeOut: 2000}),
     AppRoutingModule,
     SharedModule,
     CoreModule

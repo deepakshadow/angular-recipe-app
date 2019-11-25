@@ -7,7 +7,7 @@ import { Recipe } from '../recipe-book/recipe-list/recipe.model';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
-
+ 
 export class DataStorageService {
 
     private baseUrl: string = 'https://recipe-project-599db.firebaseio.com/recipes.json';

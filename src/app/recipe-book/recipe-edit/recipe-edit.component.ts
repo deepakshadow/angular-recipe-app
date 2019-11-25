@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
 import { RecipeService } from "../recipe.service";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "app-recipe-edit",
@@ -16,7 +17,8 @@ export class RecipeEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -32,10 +34,14 @@ export class RecipeEditComponent implements OnInit {
     // console.log(this.recipeForm);
     if (this.editMode) {
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+      this.toastr.success(`Recipe Edited Successfully`);
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
+      this.toastr.success(`New Recipe Created Successfully`);
     }
+    setTimeout(() => {
     this.router.navigate(["../"], { relativeTo: this.route });
+    }, 2000);
   };
 
   private initForm = () => {

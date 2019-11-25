@@ -1,6 +1,7 @@
 //official
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { Subscription } from "rxjs";
 //custom
 import { Recipe } from "../recipe-list/recipe.model";
@@ -19,7 +20,8 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -40,7 +42,10 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
 
   onDelete = () => {
     this.recipeService.deleteRecipe(this.id);
-    this.router.navigate(["../"], { relativeTo: this.route });
+    this.toastr.success(`Recipe Deleted successfully`);
+    setTimeout(() => {
+      this.router.navigate(["../"], { relativeTo: this.route });
+    }, 2000);
   };
   // on destroy of single recipe subscription
   ngOnDestroy() {
